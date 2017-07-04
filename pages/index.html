@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- <link rel="stylesheet" type="text/css" href="/styles/warning_message.css">
+	<link rel="stylesheet" type="text/css" href="/styles/generic_styles.css"> -->
+</head>
+<body style="margin: 0; padding: 0;">
+
+	<div style="width: 100vw; height: 3em; background: lightgray; margin-top: 2em; display: flex; justify-content: center; align-items: center;">
+
+		<div class="input_container" style="width: 40vw; background-color: white; border: 1px solid black; display: flex; border-radius: 5px;">
+			<input type="text" style="width: 100%; height: 30px; border: none; outline: none; margin: 2.5px 0 2.5px 2.5px; font-size: 24px; padding-left: 5px;" />
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="/scripts/orientation_scripts.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+
+		function validateKeyPress(keyValue, socket) {
+
+			switch(keyValue) {
+
+				case "w":
+				case "ArrowUp":
+
+					socket.emit("Send Command", {command: "ArrowUp"});
+					break;
+
+				case "d":
+				case "ArrowRight":
+
+					socket.emit("Send Command", {command: "ArrowRight"});
+					break;
+
+				case "s":
+				case "ArrowDown":
+
+					socket.emit("Send Command", {command: "ArrowDown"});
+					break;
+
+				case "a":
+				case "ArrowLeft":
+
+					socket.emit("Send Command", {command: "ArrowLeft"});
+					break;
+				
+			}
+		}
+
+		var socket = io("http://localhost:3000/");
+		// var socket = io("http://192.168.0.12:3000/");
+		// var socket = io("http://192.168.242.212:3000/");
+		// socket.on("news", function(data) {
+		// 	console.log(data);
+		// 	socket.emit("My other event", {my: "Hello Server"});
+		// });
+
+		socket.on("Connection Success", function(data) {
+			console.log(data);
+		});
+
+		socket.on("Disconnected", function(data) {
+			console.log(data);
+		});
+
+		var input = document.getElementsByTagName("input")[0];
+
+		input.onkeydown = function(event) {
+
+			// console.log(event);
+			setTimeout(() => {
+				validateKeyPress(event.key, socket);
+			}, 100);
+		}
+
+		// input.onkeyup = function() {
+
+		// 	socket.emit("Send Command", {command: this.value[this.value.length - 1]});
+		// }
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+#loading_image_container {
+
+	width: 98vw;
+	height: 98vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

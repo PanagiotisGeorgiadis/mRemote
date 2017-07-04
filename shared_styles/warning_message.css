@@ -1,0 +1,30 @@
+#warning_message_container {
+
+	width: 96vw;
+	/*height: 4em;*/
+	height: 96vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 15px auto;
+	border-radius: 10px;
+	border: 1px solid #faebcc;
+
+	background-color: #fcf8e3;
+}
+
+.warning_message_text {
+
+	font-size: 22px;
+	font-weight: bold;
+	color: black;
+	text-align: center;
+}
+
+.warning_message_highlighted {
+
+	padding: 0 5px;
+	background-color: orange;
+}
