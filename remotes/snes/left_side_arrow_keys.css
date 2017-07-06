@@ -3,15 +3,14 @@
 /************************************************************************/
 .left_arrows_container {
 
-	width: 30vw;
-	height: 30vw;
+	width: 35vw;
+	height: 35vw;
 	margin: 0 auto;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	background-color: #262626;
 	border-radius: 50%;
 
 	z-index: 3;
@@ -19,8 +18,8 @@
 
 .left_arrows_inner_container {
 
-	width: 75%;
-	height: 75%;
+	width: 100%;
+	height: 100%;
 
 	position: relative;
 
@@ -29,12 +28,14 @@
 	align-items: center;
 	flex-direction: column;
 
-	background-color: #262626;
+	background-color: darkgray;
 	border-radius: 50%;
 
-	-webkit-box-shadow: inset 0px 0px 35px 35px rgba(0,0,0,0.75);
-	-moz-box-shadow: inset 0px 0px 35px 35px rgba(0,0,0,0.75);
-	box-shadow: inset 0px 0px 35px 35px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
+	-ms-box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
+	-o-box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
+	box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.4), 0px -2px 2px rgba(0, 0, 0, 0.4);
 
 	z-index: 4;
 }
@@ -66,19 +67,6 @@
 	z-index: 5;
 }
 
-.top_arrow,
-.bottom_arrow {
-
-	width: 34%;
-	height: 100%;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	background-color: lightgray;
-}
-
 .left_and_right_arrows_container {
 
 	width: 100%;
@@ -92,18 +80,105 @@
 	z-index: 5;
 }
 
-.left_arrow,
-.middle_arrow_button,
-.right_arrow {
+.arrow_button {
 
-	width: 100%;
+	width: 34%;
 	height: 100%;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	background-color: lightgray;
+	background-color: #656565;
+}
+
+.top_arrow_button {
+
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+
+	-webkit-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-ms-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-o-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+}
+
+.top_arrow_button.clickable.active {
+
+	-webkit-box-shadow:  0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8), 6px 0px 3px -3px rgba(0,0,0,0.8) inset, -6px 0px 3px -3px rgba(0,0,0,0.8) inset;
+	-moz-box-shadow:  0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8), 6px 0px 3px -3px rgba(0,0,0,0.8) inset, -6px 0px 3px -3px rgba(0,0,0,0.8) inset;
+	-ms-box-shadow:  0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8), 6px 0px 3px -3px rgba(0,0,0,0.8) inset, -6px 0px 3px -3px rgba(0,0,0,0.8) inset;
+	-o-box-shadow:  0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8), 6px 0px 3px -3px rgba(0,0,0,0.8) inset, -6px 0px 3px -3px rgba(0,0,0,0.8) inset;
+	box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8), 6px 0px 3px -3px rgba(0,0,0,0.8) inset, -6px 0px 3px -3px rgba(0,0,0,0.8) inset;
+}
+
+.left_arrow_button {
+
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+
+	-webkit-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-ms-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-o-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+}
+
+.left_arrow_button.clickable.active {
+
+	-webkit-box-shadow: 0px 8px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	-moz-box-shadow: 0px 8px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	-ms-box-shadow: 0px 8px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	-o-box-shadow: 0px 8px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px 8px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+}
+
+.right_arrow_button {
+
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+
+	-webkit-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-ms-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-o-box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 6px 3px -3px rgba(255, 255, 255, 0.3) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+}
+
+.right_arrow_button.clickable.active {
+
+	-webkit-box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	-moz-box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	-ms-box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	-o-box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+	box-shadow: 0px 8px 3px -3px rgba(0, 0, 0, 0.8) inset, 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset;
+}
+
+.bottom_arrow_button {
+
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+
+	-webkit-box-shadow: 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-ms-box-shadow: 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	-o-box-shadow: 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px -6px 3px -3px rgba(0, 0, 0, 0.3) inset, 0px 8px 1px -1px rgba(0, 0, 0, 0.8);
+}
+
+.bottom_arrow_button.clickable.active {
+
+	-webkit-box-shadow:  0px -10px 3px -3px rgba(0, 0, 0, 0.4) inset;
+	-moz-box-shadow:  0px -10px 3px -3px rgba(0, 0, 0, 0.4) inset;
+	-ms-box-shadow:  0px -10px 3px -3px rgba(0, 0, 0, 0.4) inset;
+	-o-box-shadow:  0px -10px 3px -3px rgba(0, 0, 0, 0.4) inset;
+	box-shadow: 0px -10px 3px -3px rgba(0, 0, 0, 0.4) inset;
+}
+
+.middle_arrow_button {
+
+	width: 35%
 }
 
 .middle_arrow_button div {
@@ -112,37 +187,15 @@
 	height: 50%;
 
 	border-radius: 50%;
+	background-color: #535353;
 
-	-webkit-box-shadow: inset 0px 0px 10px 5px rgba(128, 128, 128, 0.75);
-	-moz-box-shadow: inset 0px 0px 10px 5px rgba(128, 128, 128, 0.75);
-	box-shadow: inset 0px 0px 10px 5px rgba(128, 128, 128, 0.75);
+	-webkit-box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.3) inset, 0 -1px 2px 0 rgba(255, 255, 255, 0.3) inset;
+	-moz-box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.3) inset, 0 -1px 2px 0 rgba(255, 255, 255, 0.3) inset;
+	-ms-box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.3) inset, 0 -1px 2px 0 rgba(255, 255, 255, 0.3) inset;
+	-o-box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.3) inset, 0 -1px 2px 0 rgba(255, 255, 255, 0.3) inset;
+	box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.3) inset, 0 -1px 2px 0 rgba(255, 255, 255, 0.3) inset;
 }
 
-.arrow_shape {
-
-	width: 0;
-	height: 0;
-	border-style: solid;
-	/*border-width: 75px 129.9px 75px 0;*/
-	/*border-color: transparent #007bff transparent transparent;*/
-	border-width: 1.5em 3em 1.5em 0;
-	border-color: transparent #808080 transparent transparent; 
-}
-
-.top_arrow .arrow_shape {
-
-	transform: rotate(90deg);
-}
-
-.right_arrow .arrow_shape {
-
-	transform: rotate(180deg);
-}
-
-.bottom_arrow .arrow_shape {
-
-	transform: rotate(270deg);
-}
 /************************************************************************/
 /****************** End of left arrows section **************************/
 /************************************************************************/

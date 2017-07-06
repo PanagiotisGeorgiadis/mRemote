@@ -36,6 +36,7 @@ app.use("/ps2Static", express.static(__dirname + "/remotes/ps2/"));
 app.use("/ps3Static", express.static(__dirname + "/remotes/ps3/"));
 app.use("/ps4Static", express.static(__dirname + "/remotes/ps4/"));
 app.use("/snesStatic", express.static(__dirname + "/remotes/snes/"));
+app.use("/snesStatic2", express.static(__dirname + "/remotes/snes2/"));
 
 
 app.get("/", function(request, response) {
