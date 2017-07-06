@@ -1,3 +1,4 @@
+var os = require('os');
 var util = require("util");
 var exec = require("child_process").exec;
 var child;
@@ -7,6 +8,35 @@ module.exports = class NetworkClients {
 	constructor() {
 
 		this.networkClients = [];
+	};
+
+	getServerIpAddress() {
+
+		var serverIpAddress = null;
+		var ifaces = os.networkInterfaces();
+		Object.keys(ifaces).forEach(function (ifname) {
+
+			var alias = 0;
+			ifaces[ifname].forEach(function (iface) {
+
+				// skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+				if ('IPv4' !== iface.family || iface.internal !== false)
+					return;
+
+				if (alias >= 1) { // this single interface has multiple ipv4 addresses
+
+					console.log(ifname + ':' + alias, iface.address);
+					serverIpAddress.push(iface.address);
+				} else { // this interface has only one ipv4 adress
+
+					console.log(ifname, iface.address);
+					serverIpAddress = iface.address;
+				}
+				++alias;
+			});
+		});
+
+		return serverIpAddress;
 	}
 
 	ValidateIpAddress(ipAddress) {
@@ -15,7 +45,7 @@ module.exports = class NetworkClients {
 			return true;
 		}
 		return false;
-	}
+	};
 
 	ValidateMacAddress(macAddress) {
 
@@ -23,7 +53,7 @@ module.exports = class NetworkClients {
 			return true;
 
 		return false;
-	}
+	};
 
 	FillMacAddress(macAddress) {
 
@@ -46,7 +76,7 @@ module.exports = class NetworkClients {
 			macAddress = macAddress.trim();
 
 		return macAddress;
-	}
+	};
 	
 	scanNetwork() {
 

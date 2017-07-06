@@ -1,3 +1,4 @@
+'use strict';
 /* This is a working sample of the code that finds the available IP Addresses in the network and then cross references with arp in order to get the Mac Addresses.
 var util = require("util");
 var exec = require("child_process").exec;
@@ -18,6 +19,11 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
 var robot = require("robotjs");
+
+var NetworkClients = require("./classes/NetworkClients");
+var network = new NetworkClients();
+console.log("Server Ip Address: " + network.getServerIpAddress());
+
 
 // app.use(adminApp.use("/styles", express.static(__dirname + "/public/styles/"));)
 // app.use("/gamecubeStatic", express.static(__dirname + "./remotes/gamecube/"));
