@@ -1,0 +1,122 @@
+/***************************************************************/
+/***************** Start of Header Section *********************/
+/***************************************************************/
+.header_container {
+
+	width: 100vw;
+	height: 4em;
+	
+	display: flex; 
+	justify-content: center;
+	align-items: center;
+
+	background-color: #1ac6ff;
+}
+
+.header_title {
+
+	margin: 0;
+	margin-left: auto;
+	color: white;
+	text-align: center;
+	font-family: 'Kurale', sans-serif;
+}
+
+.menu_container {
+
+	width: 50px;
+	height: 50px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin-left: auto;
+	margin-right: 15px;
+
+	cursor: pointer;
+}
+
+.menu_container:hover .top_left,
+.menu_container:hover .top_right,
+.menu_container:hover .mid_left,
+.menu_container:hover .mid_right,
+.menu_container:hover .bottom_left,
+.menu_container:hover .bottom_right {
+
+	background-color: #EEEEEE;
+}
+
+.menu_inner_container {
+
+	width: 50px;
+	height: 35px;
+	position: relative;
+}
+
+.menu_item {
+
+	position: absolute;
+	background-color: white;
+	width: 18px;
+	height: 5px;
+}
+
+.top_left {
+
+	left: 10px;
+	top: 5px;
+
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.top_right {
+
+	left: 28px;
+	top: 5px;
+
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.mid_left {
+
+	left: 10px;
+	top: 15px;
+
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.mid_right {
+
+	left: 28px;
+	top: 15px;
+
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.bottom_left {
+
+	left: 10px;
+	top: 25px;
+
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.bottom_right {
+
+	left: 28px;
+	top: 25px;
+
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+
+/***************************************************************/
+/***************** End of Header Section ***********************/
+/***************************************************************/

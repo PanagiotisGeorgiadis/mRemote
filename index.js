@@ -17,13 +17,11 @@ var express = require("express");
 var app = express();
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
-
 var robot = require("robotjs");
+
 
 var NetworkClients = require("./classes/NetworkClients");
 var network = new NetworkClients();
-console.log("Server Ip Address: " + network.getServerIpAddress());
-
 
 // app.use(adminApp.use("/styles", express.static(__dirname + "/public/styles/"));)
 // app.use("/gamecubeStatic", express.static(__dirname + "./remotes/gamecube/"));
@@ -34,6 +32,9 @@ app.use("/remotes", require(__dirname + "/remotes/remotes_router.js"));
 app.use("/styles", express.static(__dirname + "/shared_styles/"));
 app.use("/scripts", express.static(__dirname + "/shared_scripts/"));
 app.use("/images", express.static(__dirname + "/images/"));
+
+app.use("/fonts/Carter_One", express.static(__dirname + "/fonts/Carter_One/"));
+app.use("/fonts/Kurale", express.static(__dirname + "/fonts/Kurale/"));
 
 app.use("/gamecubeStatic", express.static(__dirname + "/remotes/gamecube/"));
 app.use("/nesStatic", express.static(__dirname + "/remotes/nes/"));
@@ -47,8 +48,26 @@ app.use("/snesStatic2", express.static(__dirname + "/remotes/snes2/"));
 
 app.get("/", function(request, response) {
 
-	response.sendFile(__dirname + "/pages/index.html");
+	response.sendFile(__dirname + "/pages/landing_page/");
 });
+
+app.get("/serverInfo", network.getServerInfo.bind(network));
+
+app.get("/noSocket", function(request, response) {
+
+
+	response.send("HALLO");
+});
+
+/*app.get("/serverInfo", function(request, response) {
+
+	var NetworkClients = require("./classes/NetworkClients");
+	var network = new NetworkClients();
+
+	response.send({
+		ipAddress: network.getHostIpAddress()
+	});
+});*/
 
 
 /*app.get("/command", function(request, response) {

@@ -1,7 +1,10 @@
+'use strict';
+
+var child;
 var os = require('os');
 var util = require("util");
 var exec = require("child_process").exec;
-var child;
+var QRCode = require("qrcode");
 
 module.exports = class NetworkClients {
 
@@ -10,7 +13,34 @@ module.exports = class NetworkClients {
 		this.networkClients = [];
 	};
 
-	getServerIpAddress() {
+	getServerInfo(request, response) {
+
+		// this.scanNetwork();	// I dont know if we should use that or not.
+		let serverIpAddress = (this.ValidateIpAddress(this.getHostIpAddress())) ? this.getHostIpAddress() : null;
+		var QRCodeImageSource = null;
+
+		new Promise(function(resolve, reject) {
+
+			QRCode.toDataURL("http://" + serverIpAddress, {version: 5}, function(err, url) {
+				// console.log(url);
+				QRCodeImageSource = url;
+				resolve();
+			});
+		})
+		.then(function(promiseResponse) {
+
+			response.send({
+				message: "Hello",
+				serverIpAddress,
+				QRCodeImageSource,
+			});
+		})
+		.catch(function(promiseError) {
+
+		});
+	};
+
+	getHostIpAddress() {
 
 		var serverIpAddress = null;
 		var ifaces = os.networkInterfaces();
@@ -25,11 +55,11 @@ module.exports = class NetworkClients {
 
 				if (alias >= 1) { // this single interface has multiple ipv4 addresses
 
-					console.log(ifname + ':' + alias, iface.address);
+					// console.log(ifname + ':' + alias, iface.address);
 					serverIpAddress.push(iface.address);
 				} else { // this interface has only one ipv4 adress
 
-					console.log(ifname, iface.address);
+					// console.log(ifname, iface.address);
 					serverIpAddress = iface.address;
 				}
 				++alias;
@@ -37,7 +67,7 @@ module.exports = class NetworkClients {
 		});
 
 		return serverIpAddress;
-	}
+	};
 
 	ValidateIpAddress(ipAddress) {
 	
