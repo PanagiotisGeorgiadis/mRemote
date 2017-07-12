@@ -13,7 +13,7 @@
   },
   "author": "Panagiotis Georgiadis",
   "license": "ISC",
-  "homepage": "https://github.com/PanagiotisGeorgiadis/README.md",
+  "homepage": "https://github.com/PanagiotisGeorgiadis/mRemote/README.md",
   "dependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",

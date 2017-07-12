@@ -87,16 +87,22 @@ io.on("connection", function(socket) {
 	connections.push(socket);
 	socket.emit("Connection Success", {connectionStatus: "Success", total_connections: connections.length});
 
-	socket.on("disconnect", function(data) {
+	// socket.on("disconnect", function(data) {
 
-		console.log("User Disconnected!");
-		connections.splice(connections.indexOf(socket), 1);
-		socket.emit("Disconnected :", {total_connections: connections.length})
+	// 	console.log("User Disconnected!");
+	// 	connections.splice(connections.indexOf(socket), 1);
+	// 	socket.emit("Disconnected :", {total_connections: connections.length})
+	// });
+
+	socket.on("Disconnected", function(data) {
+		socket.broadcast.emit("Device Disconnected");
 	});
 
 	socket.on("Send Command", function(data) {
 		console.log(data);
 	});
+
+	socket.broadcast.emit("Device Connected");
 });
 
 
