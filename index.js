@@ -20,35 +20,41 @@ var io = require("socket.io")(http);
 var robot = require("robotjs");
 
 
-var NetworkClients = require("./classes/NetworkClients");
+var NetworkClients = require("./host/classes/NetworkClients");
 var network = new NetworkClients();
 
 // app.use(adminApp.use("/styles", express.static(__dirname + "/public/styles/"));)
 // app.use("/gamecubeStatic", express.static(__dirname + "./remotes/gamecube/"));
 // adminApp.use("/api", require(__dirname + "/_api/api_router.js"));
 
-app.use("/remotes", require(__dirname + "/remotes/remotes_router.js"));
+const resourcesFolderPath = __dirname + "/public/resources";
+const remotesFolderPath = __dirname + "/public/resources/remotes";
 
-app.use("/styles", express.static(__dirname + "/shared_styles/"));
-app.use("/scripts", express.static(__dirname + "/shared_scripts/"));
-app.use("/images", express.static(__dirname + "/images/"));
+app.use("/remotes", require(remotesFolderPath + "/remotes_router.js"));
 
-app.use("/fonts/Carter_One", express.static(__dirname + "/fonts/Carter_One/"));
-app.use("/fonts/Kurale", express.static(__dirname + "/fonts/Kurale/"));
+app.use("/styles", express.static(resourcesFolderPath + "/styles/"));
+app.use("/scripts", express.static(resourcesFolderPath + "/scripts/"));
+app.use("/images", express.static(resourcesFolderPath + "/images/"));
 
-app.use("/gamecubeStatic", express.static(__dirname + "/remotes/gamecube/"));
-app.use("/nesStatic", express.static(__dirname + "/remotes/nes/"));
-app.use("/ps1Static", express.static(__dirname + "/remotes/ps1/"));
-app.use("/ps2Static", express.static(__dirname + "/remotes/ps2/"));
-app.use("/ps3Static", express.static(__dirname + "/remotes/ps3/"));
-app.use("/ps4Static", express.static(__dirname + "/remotes/ps4/"));
-app.use("/snesStatic", express.static(__dirname + "/remotes/snes/"));
-app.use("/snesStatic2", express.static(__dirname + "/remotes/snes2/"));
+app.use("/fonts/Carter_One", express.static(resourcesFolderPath + "/fonts/Carter_One/"));
+app.use("/fonts/Kurale", express.static(resourcesFolderPath + "/fonts/Kurale/"));
 
+app.use("/gamecubeStatic", express.static(remotesFolderPath	+ "/gamecube/"));
+app.use("/nesStatic", express.static(remotesFolderPath		+ "/nes/"));
+app.use("/ps1Static", express.static(remotesFolderPath		+ "/ps1/"));
+app.use("/ps2Static", express.static(remotesFolderPath		+ "/ps2/"));
+app.use("/ps3Static", express.static(remotesFolderPath		+ "/ps3/"));
+app.use("/ps4Static", express.static(remotesFolderPath		+ "/ps4/"));
+app.use("/snesStatic", express.static(remotesFolderPath		+ "/snes/"));
+app.use("/snesStatic2", express.static(remotesFolderPath	+ "/snes2/"));
 
+var connections = [];
 app.get("/", function(request, response) {
+	response.sendFile(resourcesFolderPath + "/pages/landing_page/");
+});
 
-	response.sendFile(__dirname + "/pages/landing_page/");
+app.get("/connect", (request, response) => {
+	response.sendFile(resourcesFolderPath + "/pages/connection_page/");
 });
 
 app.get("/serverInfo", network.getServerInfo.bind(network));
@@ -77,15 +83,27 @@ app.get("/noSocket", function(request, response) {
 	console.log(request);
 });*/
 
-
 var connections = [];
 io.on("connection", function(socket) {
 
 	// console.log(socket);
-	console.log("A user connected!");
-	
-	connections.push(socket);
-	socket.emit("Connection Success", {connectionStatus: "Success", total_connections: connections.length});
+
+	socket.on("Connection Success", function() {
+
+		console.log("A user connected!");
+		connections.push(socket.id);
+		socket.broadcast.emit("Device Connected", {connections});
+	});
+
+	socket.on("Connection Terminated", function() {
+
+		console.log("A user disconnected!");
+		connections.splice(connections.indexOf(socket.id), 1);
+		socket.broadcast.emit("Device Disconnected", {connections});
+	});
+
+
+	// socket.emit("Connection Success", {connectionStatus: "Success", total_connections: connections.length});
 
 	// socket.on("disconnect", function(data) {
 
@@ -94,15 +112,36 @@ io.on("connection", function(socket) {
 	// 	socket.emit("Disconnected :", {total_connections: connections.length})
 	// });
 
-	socket.on("Disconnected", function(data) {
-		socket.broadcast.emit("Device Disconnected");
-	});
+	// socket.on("Disconnected", function(data) {
+	// 	socket.broadcast.emit("Device Disconnected");
+	// });
+	//
+	// socket.on("Send Command", function(data) {
+	// 	console.log(data);
+	// });
+	//
+	// socket.broadcast.emit("Device Connected");
 
-	socket.on("Send Command", function(data) {
-		console.log(data);
-	});
+	// setTimeout(() => {
+	// 	robot.typeString("Eminem Full Album The Eminem Show");
+	// 	robot.keyTap("enter");
+	// }, 5000);
 
-	socket.broadcast.emit("Device Connected");
+	// setTimeout(() => {
+
+	// 	var screenSize = robot.getScreenSize();
+	// 	var height = (screenSize.height * 0.4) - 10;
+	// 	var width = screenSize.width * 0.4;
+
+	// 	robot.moveMouse(width, height);
+
+	// 	// robot.keyTap("f");
+	// 	robot.keyTap("audio_mute");
+	// }, 15000);
+
+	// setTimeout(() => {
+	// 	robot.keyTap("audio_mute");
+	// }, 17500);
 });
 
 
@@ -126,24 +165,3 @@ http.listen(3000, function() {
 // });
 
 // The End!!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

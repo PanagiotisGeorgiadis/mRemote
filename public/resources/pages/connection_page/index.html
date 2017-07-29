@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body style="margin: 0; padding: 0; overflow-x: hidden;">
+
+	<div class="connection_status_container"></div>
+	<h2>HALLO</h2>
+
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+
+
+		var socket = io("http://localhost:3000/");
+
+		socket.emit("Connection Success");
+
+		window.onunload = function() {
+			socket.emit("Connection Terminated");
+		}
+
+	</script>
+</body>
+</html>

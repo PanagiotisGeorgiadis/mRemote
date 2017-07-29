@@ -35,13 +35,13 @@
 		</div>
 
 		<div class="menu_container" style="">
-			
+
 			<div class="menu_option"> Scan Network </div>
 			<div class="menu_option"> Show Devices </div>
 			<div class="menu_option"> Show Devices </div>
 			<div class="menu_option"> Show Tutorial </div>
 		</div>
-		
+
 	</div>
 
 	<div class="loading_image_container">
@@ -52,16 +52,16 @@
 
 		<div class="QR_section_container">
 			<h3 class="QR_section_header">Open the <span class="mRemote_span">mRemote</span> app and scan the QR Code</h3>
-			<img class="QR_code_image" alt="If there is no image shown please click the button below." /> 
-			<button class="toggle_QR_button" onclick="showIPAddressSectionContainer();"> Show Ip Address</button>
+			<img class="QR_code_image" alt="If there is no image shown please click the button below." />
+			<button class="toggle_QR_button"> Show Ip Address</button>
 		</div>
 
 		<div class="IP_Address_section_container">
 			<h3 class="IP_Address_section_header">Open the <span class="mRemote_span">mRemote</span> app and enter the following IP Address</h3>
 			<h2 class="IP_Address_element"></h2>
-			<button class="toggle_IP_Address_section_button" onclick="showQRSectionContainer();"> Show QR Image </button>
+			<button class="toggle_IP_Address_section_button"> Show QR Image </button>
 		</div>
-		
+
 	</div>
 
 
@@ -80,8 +80,11 @@
 	<!-- <script type="text/javascript" src="/scripts/orientation_scripts.js"></script> -->
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="/scripts/HostScripts.js"></script>
+	<script type="text/javascript" src="/scripts/LandingPage.js"></script>
 	<script type="text/javascript" src="/scripts/landing_page_scripts.js"></script>
 	<script type="text/javascript">
+
+		var landingPage = new LandingPage();
 
 		function validateKeyPress(keyValue, socket) {
 
@@ -110,22 +113,23 @@
 
 					socket.emit("Send Command", {command: "ArrowLeft"});
 					break;
-				
+
 			}
 		}
 
-		var socket = io("http://localhost:3000/");	// This line here is used to connect the user to the socket.
+		var socket = io("http://localhost:3000/"); // The ip is not needed on the HOST app because there is a fallback that uses window.location
 		// var socket = io("http://192.168.0.12:3000/");
 		// var socket = io("http://192.168.242.212:3000/");
 		// socket.on("news", function(data) {
 		// 	console.log(data);
 		// 	socket.emit("My other event", {my: "Hello Server"});
 		// });
+		// socket.emit("Connection Success");
 
-		socket.on("Connection Success", function(data) {
-			console.log(data);
-			// deviceConnected();
-		});
+		// socket.on("Connection Success", function(data) {
+		// 	console.log(data);
+		// 	// deviceConnected();
+		// });
 
 		/*socket.on("Disconnected", function(data) {
 			console.log(data);
@@ -133,18 +137,19 @@
 		});*/
 
 		socket.on("Device Connected", function(data) {
-			// deviceConnected();
+			console.log("DEVICE CONNECTED");
+			landingPage.deviceConnected();
 			console.log(data);
 		});
 
 		socket.on("Device Disconnected", function(data) {
-			// deviceDisconnected();
+			console.log("DEVICE DISCONNECTED");
+			landingPage.deviceDisconnected();
 			console.log(data);
 		});
 
 		window.onbeforeunload = function() {
-
-			socket.emit("Disconnected");
+			// socket.emit("Disconnected");
 		}
 
 		// var input = document.getElementsByTagName("input")[0];

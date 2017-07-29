@@ -1,5 +1,5 @@
 .message_window_container {
-  
+
 	width: 100%;
 	min-height: 4em;
 	display: flex;
@@ -9,6 +9,7 @@
 	transition: all 0.5s linear;
 	position: absolute;
 	top: -4em;
+    z-index: 2;
 }
 
 .message_container {
