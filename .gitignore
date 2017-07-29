@@ -1,7 +1,5 @@
 node_modules/
 backup/
-backup_experimental_code.js
 remotes/snes/backup/
-fonts/
 old/
-
+resources/fonts/
