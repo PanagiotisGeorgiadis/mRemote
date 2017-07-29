@@ -33,8 +33,8 @@ function deviceConnected() {
 
 	message_container.className = message_container.className.replace(" failed_message", "");
 	message_container.className += " successful_message";
-  
-  showMessageContainer();
+
+	showMessageContainer();
 }
 
 function deviceDisconnected() {
@@ -44,8 +44,16 @@ function deviceDisconnected() {
 
 	message_container.className = message_container.className.replace(" successful_message", "");
 	message_container.className += " failed_message";
-  
-  showMessageContainer();
+
+	showMessageContainer();
+}
+
+function toggleMenuContainer() {
+
+	var menu_container = document.getElementsByClassName("menu_container")[0];
+	var menu_container_display_value = window.getComputedStyle(menu_container).getPropertyValue("display");
+
+	menu_container.style.display = (menu_container_display_value === "flex") ? "none" : "flex";
 }
 
 window.onload = function() {
@@ -65,9 +73,14 @@ window.onload = function() {
 		console.error(error);
 	});
 
-	var close_message_button = document.getElementsByClassName("close_message_button")[0];
 
+	var close_message_button = document.getElementsByClassName("close_message_button")[0];
 	close_message_button.onclick = function() {
 		hideMessageContainer();
+	}
+
+	var menu_trigger_button = document.getElementsByClassName("menu_trigger_button")[0];
+	menu_trigger_button.onclick = function() {
+		toggleMenuContainer();
 	}
 }

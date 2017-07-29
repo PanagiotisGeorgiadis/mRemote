@@ -1,0 +1,61 @@
+.message_window_container {
+  
+	width: 100%;
+	min-height: 4em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transition: all 0.5s linear;
+	position: absolute;
+	top: -4em;
+}
+
+.message_container {
+
+	/*width: 50%;*/
+	width: 20em;
+	min-height: 4em;
+	border-radius: 5px;
+	font-weight: bold;
+	position: relative;
+}
+
+.close_message_button {
+	width: 15px;
+	height: 15px;
+
+	position: absolute;
+	top: 2px;
+	right: 2px;
+
+	border-radius: 50%;
+	background-color: black;
+	cursor: pointer;
+}
+
+.successful_message {
+	background-color: lightgreen;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+}
+
+.successful_message:after {
+	content: "Device Connected Successfully!";
+	color: white;
+}
+
+.failed_message {
+	background-color: #ff7777;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+}
+
+.failed_message:after {
+	content: "Device Disconnected!";
+	color: white;
+}

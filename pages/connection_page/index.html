@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- <link rel="stylesheet" type="text/css" href="/styles/warning_message.css">
+	<link rel="stylesheet" type="text/css" href="/styles/generic_styles.css"> -->
+
+	<!-- <link rel="stylesheet" type="text/css" href="/styles/landing_page_styles.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/styles/landing_page_header.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/styles/landing_page_message.css"> -->
+
+</head>
+<body style="margin: 0; padding: 0; overflow-x: hidden;">
+
+	<div class="connection_status_container"></div>
+
+	<!-- <script type="text/javascript" src="/scripts/orientation_scripts.js"></script> -->
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<!-- <script type="text/javascript" src="/scripts/HostScripts.js"></script>
+	<script type="text/javascript" src="/scripts/landing_page_scripts.js"></script> -->
+	<script type="text/javascript">
+
+		// function validateKeyPress(keyValue, socket) {
+
+		// 	switch(keyValue) {
+
+		// 		case "w":
+		// 		case "ArrowUp":
+
+		// 			socket.emit("Send Command", {command: "ArrowUp"});
+		// 			break;
+
+		// 		case "d":
+		// 		case "ArrowRight":
+
+		// 			socket.emit("Send Command", {command: "ArrowRight"});
+		// 			break;
+
+		// 		case "s":
+		// 		case "ArrowDown":
+
+		// 			socket.emit("Send Command", {command: "ArrowDown"});
+		// 			break;
+
+		// 		case "a":
+		// 		case "ArrowLeft":
+
+		// 			socket.emit("Send Command", {command: "ArrowLeft"});
+		// 			break;
+				
+		// 	}
+		// }
+
+		var socket = io("http://localhost:3000/connect");	// This line here is used to connect the user to the socket.
+		// var socket = io("http://192.168.0.12:3000/");
+		// var socket = io("http://192.168.242.212:3000/");
+		// socket.on("news", function(data) {
+		// 	console.log(data);
+		// 	socket.emit("My other event", {my: "Hello Server"});
+		// });
+
+		socket.on("Connection Success", function(data) {
+			console.log(data);
+			// deviceConnected();
+		});
+
+		/*socket.on("Disconnected", function(data) {
+			console.log(data);
+			// deviceDisconnected();
+		});*/
+
+		socket.on("Device Connected", function(data) {
+			// deviceConnected();
+			document.getElementsByClassName("connection_status_container")[0].innerHTML = data;
+			console.log("Connected");
+		});
+
+		socket.on("Device Disconnected", function(data) {
+			// deviceDisconnected();
+			document.getElementsByClassName("connection_status_container")[0].innerHTML = data;
+			console.log("Disconnected");
+		});
+
+		window.onbeforeunload = function() {
+
+			socket.emit("Disconnected");
+		}
+
+		// var input = document.getElementsByTagName("input")[0];
+		/*input.onkeydown = function(event) {
+
+			// console.log(event);
+			setTimeout(() => {
+				validateKeyPress(event.key, socket);
+			}, 100);
+		}*/
+
+		// input.onkeyup = function() {
+
+		// 	socket.emit("Send Command", {command: this.value[this.value.length - 1]});
+		// }
+
+	</script>
+</body>
+</html>

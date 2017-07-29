@@ -133,11 +133,13 @@
 		});*/
 
 		socket.on("Device Connected", function(data) {
-			deviceConnected();
+			// deviceConnected();
+			console.log(data);
 		});
 
 		socket.on("Device Disconnected", function(data) {
-			deviceDisconnected();
+			// deviceDisconnected();
+			console.log(data);
 		});
 
 		window.onbeforeunload = function() {
