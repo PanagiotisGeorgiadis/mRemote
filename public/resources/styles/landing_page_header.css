@@ -11,6 +11,8 @@
 	align-items: center;
 
 	background-color: #1ac6ff;
+
+	position: relative;
 }
 
 .header_title {

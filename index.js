@@ -35,6 +35,7 @@ app.use("/remotes", require(remotesFolderPath + "/remotes_router.js"));
 app.use("/styles", express.static(resourcesFolderPath + "/styles/"));
 app.use("/scripts", express.static(resourcesFolderPath + "/scripts/"));
 app.use("/images", express.static(resourcesFolderPath + "/images/"));
+app.use("/app", express.static(__dirname + "/public/"));
 
 app.use("/fonts/Carter_One", express.static(resourcesFolderPath + "/fonts/Carter_One/"));
 app.use("/fonts/Kurale", express.static(resourcesFolderPath + "/fonts/Kurale/"));
@@ -50,6 +51,10 @@ app.use("/snesStatic2", express.static(remotesFolderPath	+ "/snes2/"));
 
 var connections = [];
 app.get("/", function(request, response) {
+	response.sendFile(resourcesFolderPath + "/pages/");
+});
+
+app.get("/test", function(request, response) {
 	response.sendFile(resourcesFolderPath + "/pages/landing_page/");
 });
 

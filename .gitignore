@@ -3,3 +3,4 @@ backup/
 remotes/snes/backup/
 old/
 resources/fonts/
+public/mRemoteHostBundle.js
