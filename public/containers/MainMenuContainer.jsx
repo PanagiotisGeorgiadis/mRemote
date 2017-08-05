@@ -34,6 +34,14 @@ class MainMenuContainer extends Component {
 				{
 					text: "Show Tutorial",
 					url: "/tutorial"
+				},
+				{
+					text: "Settings",
+					url: "/settings"
+				},
+				{
+					text: "System Info",
+					url: "/systemInfo"
 				}
 			]
 		};

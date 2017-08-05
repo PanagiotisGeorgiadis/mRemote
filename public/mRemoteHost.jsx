@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
+import { createStore, applyMiddleware, bindActionCreators } from "redux";
+import { Provider, connect } from "react-redux";
 import thunk from "redux-thunk";
 
 import rootReducer from "./reducers/";
@@ -17,7 +17,7 @@ import ConnectDevicePageContainer from "./containers/ConnectDevicePageContainer.
 
 import { hideMainMenu } from "./actions/MainMenuActions";
 
-class MRemoteHost extends Component {
+class mRemoteHost extends Component {
 
 	constructor(props) {
 		super(props);
@@ -25,7 +25,19 @@ class MRemoteHost extends Component {
 	}
 
 	onClickHandler(event) {
-		console.log("Implement the hideMainMenu action");
+		this.state.hideMainMenu();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			...nextProps
+		});
+	}
+
+	componentWillMount() {
+		this.setState({
+			...this.props
+		});
 	}
 
 	render() {
@@ -39,6 +51,8 @@ class MRemoteHost extends Component {
 					<Route exact path = "/processes" component = { ConnectDevicePageContainer } />
 					<Route exact path = "/uploads" component = { ConnectDevicePageContainer } />
 					<Route exact path = "/tutorial" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/settings" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/systemInfo" component = { ConnectDevicePageContainer } />
 					<Footer />
 				</div>
 			</Router>
@@ -46,10 +60,22 @@ class MRemoteHost extends Component {
 	}
 }
 
-var reactRoot = document.getElementById("react-root");
-const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+const mapStateToProps = () => {
+	return {};
+};
 
+const mapDispatchToProps = (dispatch) => {
+	return bindActionCreators({
+		hideMainMenu
+	}, dispatch);
+};
+
+const MRemoteHostApp = connect(mapStateToProps, mapDispatchToProps)(mRemoteHost);
+const store = createStore(rootReducer, initialState, applyMiddleware(thunk));
+export default MRemoteHostApp;
+
+var reactRoot = document.getElementById("react-root");
 ReactDOM.render(<Provider store = { store } >
-					<MRemoteHost />
+					<MRemoteHostApp />
 				</Provider>,
 				reactRoot);
