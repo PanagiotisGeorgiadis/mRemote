@@ -34,7 +34,6 @@
 	align-items: center;
 
 	margin-left: auto;
-	/*margin-right: 15px;*/
 	margin-right: 1em;
 
 	cursor: pointer;
@@ -132,22 +131,29 @@
 	align-items: center;
 
 	background-color: lightgray;
+	border: 1px solid lightgray;
+}
+
+.menu_container a {
+
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.menu_container a:hover {
+
+	background-color: white;
 }
 
 .menu_option {
-
-	/*margin: 0.5em 0;*/
 	padding: 0.5em 2em;
-
-	font-weight: bold;
-	/*border-bottom: 1px solid black;*/
-
-	cursor: pointer;
-}
-
-.menu_option:hover {
-
-	background-color: white;
 }
 /***************************************************************/
 /***************** End of Header Section ***********************/
