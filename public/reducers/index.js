@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
-// import HotelsListReducer from "./HotelsListReducer";
-// import HotelPageReducer from "./HotelPageReducer";
-import LandingPageReducer from "./LandingPageReducer";
+import MainMenuReducer from "./MainMenuReducer";
+import ConnectDevicePageReducer from "./ConnectDevicePageReducer";
 
 const rootReducer = combineReducers({
-	LandingPageReducer,
+	MainMenuReducer,
+	ConnectDevicePageReducer,
 });
 
 
