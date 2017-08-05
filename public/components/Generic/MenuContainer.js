@@ -1,12 +1,15 @@
 import React from "react";
 
-const MenuContainer = () => {
+import MenuContainerOption from "./MenuContainerOption";
+
+const MenuContainer = ({menuContainerDisplayValue = "none", menuOptions = []}) => {
+
+	let MenuOptions = menuOptions.map(({text, url}, iterator) => {
+		return <MenuContainerOption key = { iterator } menuOptionText = { text } menuOptionUrl = { url } />
+	});
 	return (
-		<div className = "menu_container">
-			<div className = "menu_option"> Scan Network </div>
-			<div className = "menu_option"> Show Devices </div>
-			<div className = "menu_option"> Show Devices </div>
-			<div className = "menu_option"> Show Tutorial </div>
+		<div className = "menu_container" style = {{ display: menuContainerDisplayValue }}>
+			{ MenuOptions }
 		</div>
 	);
 }

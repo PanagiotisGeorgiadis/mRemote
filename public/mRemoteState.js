@@ -1,3 +1,7 @@
+const defaultMainMenuState = {
+	menuContainerDisplayValue: "none"
+}
+
 const defaultApplicationState = {
 	loadingImageVisible: true,
     errorMessageVisible: false,
@@ -5,7 +9,10 @@ const defaultApplicationState = {
 }
 
 const initialState = {
-	LandingPageReducer: {
+	MainMenuReducer: {
+		...defaultMainMenuState
+	},
+	ConnectDevicePageReducer: {
 		...defaultApplicationState,
 	},
 };

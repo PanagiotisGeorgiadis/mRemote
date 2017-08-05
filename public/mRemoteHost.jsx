@@ -10,28 +10,36 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers/";
 import initialState from "./mRemoteState";
 
-import Header from "./components/Generic/Header";
+import MainMenuContainer from "./containers/MainMenuContainer.jsx";
+import Footer from "./components/Generic/Footer";
 
-import LandingPageContainer from "./containers/LandingPageContainer.jsx";
+import ConnectDevicePageContainer from "./containers/ConnectDevicePageContainer.jsx";
 
-export default class MRemoteHost extends Component {
+import { hideMainMenu } from "./actions/MainMenuActions";
+
+class MRemoteHost extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {};
 	}
 
+	onClickHandler(event) {
+		console.log("Implement the hideMainMenu action");
+	}
+
 	render() {
 		return (
 			<Router>
-				<div className = "mRemoteContainer">
-					<Header />
-					<Route exact path = "/" component = { LandingPageContainer } />
-					<Route exact path = "/devices/" component = { LandingPageContainer } />
-					<Route exact path = "/devices/:id" component = { LandingPageContainer } />
-					<Route exact path = "/processes" component = { LandingPageContainer } />
-					<Route exact path = "/uploads" component = { LandingPageContainer } />
-					<Route exact path = "/tutorial" component = { LandingPageContainer } />
+				<div className = "mRemoteContainer" onClick = { this.onClickHandler.bind(this) }>
+					<MainMenuContainer />
+					<Route exact path = "/" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/devices/" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/devices/:id" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/processes" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/uploads" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/tutorial" component = { ConnectDevicePageContainer } />
+					<Footer />
 				</div>
 			</Router>
 		);
