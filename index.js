@@ -13,73 +13,84 @@ console.log("==========================================");
 console.log("\n\n\n\n");
 console.log("==========================================");
 
-var express = require("express");
-var app = express();
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
-var robot = require("robotjs");
+const express = require("express");
+const app = express();
+const http = require("http").Server(app);
+
+const pathSeparator = require("path").sep;
+const resourcesFolderPath = __dirname + pathSeparator + "public" + pathSeparator + "resources";
+const hostClassesFolderPath = __dirname + pathSeparator + "host" + pathSeparator + "classes";
+
+const HostInfo = require(hostClassesFolderPath + pathSeparator + "HostInfo");
+const HostFilesystem = require(hostClassesFolderPath + pathSeparator + "HostFilesystem");
+const SocketConnections = require(hostClassesFolderPath + pathSeparator + "SocketConnections");
+const HostXMLRpcHandler = require(hostClassesFolderPath + pathSeparator + "HostXMLRpcHandler");
+
+const hostInfo = new HostInfo();
+const hostFilesystem = new HostFilesystem();
+const socketConnection = new SocketConnections(http, hostInfo);
+const hostXMLRpcHandler = new HostXMLRpcHandler();
+
+app.use("/app", express.static(__dirname + pathSeparator + "public"));
+app.use("/styles", express.static(resourcesFolderPath + pathSeparator + "styles"));
+app.use("/scripts", express.static(resourcesFolderPath + pathSeparator + "scripts"));
+app.use("/images", express.static(resourcesFolderPath + pathSeparator + "images"));
 
 
-var NetworkClients = require("./host/classes/NetworkClients");
-var network = new NetworkClients();
+app.use("/fonts/Carter_One", express.static(resourcesFolderPath + pathSeparator + "fonts" + pathSeparator + "Carter_One"));
+app.use("/fonts/Kurale", express.static(resourcesFolderPath + pathSeparator + "fonts" + pathSeparator + "Kurale"));
 
-// app.use(adminApp.use("/styles", express.static(__dirname + "/public/styles/"));)
-// app.use("/gamecubeStatic", express.static(__dirname + "./remotes/gamecube/"));
-// adminApp.use("/api", require(__dirname + "/_api/api_router.js"));
+// const remotesFolderPath = __dirname + "/public/resources/remotes";
 
-const resourcesFolderPath = __dirname + "/public/resources";
-const remotesFolderPath = __dirname + "/public/resources/remotes";
+// app.use("/remotes", require(remotesFolderPath + "/remotes_router.js"));
+// app.use("/gamecubeStatic", express.static(remotesFolderPath	+ "/gamecube/"));
+// app.use("/nesStatic", express.static(remotesFolderPath		+ "/nes/"));
+// app.use("/ps1Static", express.static(remotesFolderPath		+ "/ps1/"));
+// app.use("/ps2Static", express.static(remotesFolderPath		+ "/ps2/"));
+// app.use("/ps3Static", express.static(remotesFolderPath		+ "/ps3/"));
+// app.use("/ps4Static", express.static(remotesFolderPath		+ "/ps4/"));
+// app.use("/snesStatic", express.static(remotesFolderPath		+ "/snes/"));
+// app.use("/snesStatic2", express.static(remotesFolderPath	+ "/snes2/"));
 
-app.use("/remotes", require(remotesFolderPath + "/remotes_router.js"));
-
-app.use("/styles", express.static(resourcesFolderPath + "/styles/"));
-app.use("/scripts", express.static(resourcesFolderPath + "/scripts/"));
-app.use("/images", express.static(resourcesFolderPath + "/images/"));
-app.use("/app", express.static(__dirname + "/public/"));
-
-app.use("/fonts/Carter_One", express.static(resourcesFolderPath + "/fonts/Carter_One/"));
-app.use("/fonts/Kurale", express.static(resourcesFolderPath + "/fonts/Kurale/"));
-
-app.use("/gamecubeStatic", express.static(remotesFolderPath	+ "/gamecube/"));
-app.use("/nesStatic", express.static(remotesFolderPath		+ "/nes/"));
-app.use("/ps1Static", express.static(remotesFolderPath		+ "/ps1/"));
-app.use("/ps2Static", express.static(remotesFolderPath		+ "/ps2/"));
-app.use("/ps3Static", express.static(remotesFolderPath		+ "/ps3/"));
-app.use("/ps4Static", express.static(remotesFolderPath		+ "/ps4/"));
-app.use("/snesStatic", express.static(remotesFolderPath		+ "/snes/"));
-app.use("/snesStatic2", express.static(remotesFolderPath	+ "/snes2/"));
-
-var connections = [];
 app.get("/", function(request, response) {
-	response.sendFile(resourcesFolderPath + "/pages/");
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator);
 });
 
+app.get("/serverInfo", hostInfo.getHostIpAddress.bind(hostInfo));
+
+app.get("/uploads", (request, response) => {
+
+	hostFilesystem.getUserUploads((data) => {
+		response.send(data);
+	});
+});
+
+app.post("/uploads", (request, response) => {
+	// TODO: Uploads from the user to the host.
+	hostFilesystem.handleFileUploads(request, response);
+});
+
+app.post("/host/openUploads", (request, response) => {
+	hostXMLRpcHandler.openUploadsFolder();
+	response.send({message: "Command Received"});
+});
+
+
 app.get("/test", function(request, response) {
-	response.sendFile(resourcesFolderPath + "/pages/landing_page/");
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "test_page" + pathSeparator);
+});
+
+app.get("/upload_test", function(request, response) {
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "upload_test" + pathSeparator);
 });
 
 app.get("/connect", (request, response) => {
-	response.sendFile(resourcesFolderPath + "/pages/connection_page/");
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "connection_page" + pathSeparator);
 });
-
-app.get("/serverInfo", network.getServerInfo.bind(network));
 
 app.get("/noSocket", function(request, response) {
-
-
 	response.send("HALLO");
 });
-
-/*app.get("/serverInfo", function(request, response) {
-
-	var NetworkClients = require("./classes/NetworkClients");
-	var network = new NetworkClients();
-
-	response.send({
-		ipAddress: network.getHostIpAddress()
-	});
-});*/
-
 
 /*app.get("/command", function(request, response) {
 
@@ -88,7 +99,7 @@ app.get("/noSocket", function(request, response) {
 	console.log(request);
 });*/
 
-var connections = [];
+/*var connections = [];
 io.on("connection", function(socket) {
 
 	// console.log(socket);
@@ -147,7 +158,7 @@ io.on("connection", function(socket) {
 	// setTimeout(() => {
 	// 	robot.keyTap("audio_mute");
 	// }, 17500);
-});
+}); */
 
 
 // http.listen(80);
