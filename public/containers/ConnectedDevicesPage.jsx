@@ -9,7 +9,7 @@ import { updateDeviceStatus, updateConnectedDevicesStyles, showDeviceStatusMenu,
 // import { showSuccessInformationMessage, showDangerInformationMessage, hideInformationMessage, updateInformationMessageText } from "../actions/InformationMessageActions";
 
 import LoadingImage from "../components/Generic/LoadingImage";
-import ConnectedDevicesContainer from "../components/ConnectedDevicesPage/ConnectedDevicesContainer";
+import ConnectedDevicesList from "../components/ConnectedDevicesPage/ConnectedDevicesList";
 // import InformationMessage from "../components/Generic/InformationMessage";
 
 class ConnectedDevicesPage extends Component {
@@ -123,7 +123,7 @@ class ConnectedDevicesPage extends Component {
 		}
 
 		if(this.state.connectedDevicesDrawable && this.state.connectedDevicesDrawable.length) {
-			contents.push(<ConnectedDevicesContainer key = {Date.now()} connectedDevices = { this.state.connectedDevicesDrawable } onContextMenuHandler = { this.onContextMenuHandler.bind(this) } statusMenuOnClickHandler = { this.statusMenuOnClickHandler.bind(this) } statusMenuStyles = { this.state.deviceStatusMenuStyles } onDragOverHandler = { this.onDragOverHandler.bind(this) } onDragStartHandler = { this.onDragStartHandler.bind(this) } onDropHandler = { this.onDropHandler.bind(this) } />
+			contents.push(<ConnectedDevicesList key = {Date.now()} connectedDevices = { this.state.connectedDevicesDrawable } onContextMenuHandler = { this.onContextMenuHandler.bind(this) } statusMenuOnClickHandler = { this.statusMenuOnClickHandler.bind(this) } statusMenuStyles = { this.state.deviceStatusMenuStyles } onDragOverHandler = { this.onDragOverHandler.bind(this) } onDragStartHandler = { this.onDragStartHandler.bind(this) } onDropHandler = { this.onDropHandler.bind(this) } />
 			);
 		}
 

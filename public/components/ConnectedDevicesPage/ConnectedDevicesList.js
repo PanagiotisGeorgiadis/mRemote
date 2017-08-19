@@ -9,7 +9,7 @@ import DeviceStatusMenu from "./DeviceStatusMenu";
 // System Name 		=> Used
 // System Version 	=> Used
 // Device Unique ID => Maybe
-const ConnectedDevicesContainer = ({connectedDevices = [], onContextMenuHandler = null, onDragOverHandler = null, onDragStartHandler = null, onDropHandler = null,  statusMenuStyles = {}, statusMenuOnClickHandler = null }) => {
+const ConnectedDevicesList = ({connectedDevices = [], onContextMenuHandler = null, onDragOverHandler = null, onDragStartHandler = null, onDropHandler = null,  statusMenuStyles = {}, statusMenuOnClickHandler = null }) => {
 
 	let devices = connectedDevices.map((device, iterator) => {
 		device.key = iterator;
@@ -24,4 +24,4 @@ const ConnectedDevicesContainer = ({connectedDevices = [], onContextMenuHandler 
 	);
 }
 
-export default ConnectedDevicesContainer;
+export default ConnectedDevicesList;
