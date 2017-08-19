@@ -4,8 +4,10 @@ const defaultMainMenuState = {
 
 const defaultApplicationState = {
 	loadingImageVisible: true,
-    errorMessageVisible: false,
-	errorMessage: null,
+}
+
+const defaultSocketState = {
+	internetAccess: true,
 }
 
 const initialState = {
@@ -15,6 +17,9 @@ const initialState = {
 	ConnectDevicePageReducer: {
 		...defaultApplicationState,
 	},
+	SocketReducer: {
+		...defaultSocketState,
+	}
 };
 
 export default initialState;

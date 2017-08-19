@@ -14,8 +14,11 @@ import MainMenuContainer from "./containers/MainMenuContainer.jsx";
 import Footer from "./components/Generic/Footer";
 
 import ConnectDevicePageContainer from "./containers/ConnectDevicePageContainer.jsx";
+import ConnectedDevicesPage from "./containers/ConnectedDevicesPage.jsx";
 
 import { hideMainMenu } from "./actions/MainMenuActions";
+import { hideDeviceStatusMenu } from "./actions/ConnectedDevicesPageActions";
+import { terminateSocketConnection } from "./actions/SocketActions";
 
 class mRemoteHost extends Component {
 
@@ -26,6 +29,7 @@ class mRemoteHost extends Component {
 
 	onClickHandler(event) {
 		this.state.hideMainMenu();
+		this.state.hideDeviceStatusMenu();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -35,6 +39,9 @@ class mRemoteHost extends Component {
 	}
 
 	componentWillMount() {
+		window.addEventListener("unload", () => {
+			this.state.terminateSocketConnection();
+		});
 		this.setState({
 			...this.props
 		});
@@ -46,7 +53,7 @@ class mRemoteHost extends Component {
 				<div className = "mRemoteContainer" onClick = { this.onClickHandler.bind(this) }>
 					<MainMenuContainer />
 					<Route exact path = "/" component = { ConnectDevicePageContainer } />
-					<Route exact path = "/devices/" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/connected_devices" component = { ConnectedDevicesPage } />
 					<Route exact path = "/devices/:id" component = { ConnectDevicePageContainer } />
 					<Route exact path = "/processes" component = { ConnectDevicePageContainer } />
 					<Route exact path = "/uploads" component = { ConnectDevicePageContainer } />
@@ -66,7 +73,9 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
-		hideMainMenu
+		hideMainMenu,
+		hideDeviceStatusMenu,
+		terminateSocketConnection
 	}, dispatch);
 };
 

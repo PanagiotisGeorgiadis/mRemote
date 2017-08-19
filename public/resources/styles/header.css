@@ -13,6 +13,7 @@
 	background-color: #1ac6ff;
 
 	position: relative;
+	z-index: 5;
 }
 
 .header_title {
