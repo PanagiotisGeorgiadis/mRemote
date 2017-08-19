@@ -18,15 +18,23 @@ class ConnectDevicePageContainer extends Component {
 		super(props);
 		this.state = {
 			socketInitialised: false,
+			informationMessageTimeout: null,
 		};
 	}
 
+	clearPreviousTimer() {
+		if(this.state.informationMessageTimeout)
+			clearTimeout(this.state.informationMessageTimeout);
+	}
+
 	closeMessageHandler() {
+		this.clearPreviousTimer();
 		this.state.hideInformationMessage();
 	}
 
 	closeMessageHandlerTimed() {
-		setTimeout(() => {
+		this.clearPreviousTimer();
+		this.state.informationMessageTimeout = setTimeout(() => {
 			this.state.hideInformationMessage();
 		}, 5000);
 	}
