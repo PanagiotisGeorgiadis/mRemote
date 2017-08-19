@@ -1,0 +1,58 @@
+.message_window_container {
+
+	width: 100%;
+	min-height: 4em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transition: all 0.5s linear;
+	position: absolute;
+	top: 0;
+	z-index: 2;
+}
+
+.message_container {
+
+	width: 30%;
+	min-height: 4em;
+	position: relative;
+	top: 0;
+
+	display: flex;
+
+	color: white;
+	font-weight: bold;
+	border-radius: 5px;
+}
+
+.message_container h3 {
+	margin: auto;
+}
+
+.close_message_button {
+/*	width: 15px;
+	height: 15px;
+
+	position: absolute;
+	top: 2px;
+	right: 2px;
+
+	border-radius: 50%;
+	background-color: black;
+	cursor: pointer;*/
+	position: absolute;
+	top: 0;
+	right: 4px;
+	font-size: 24px !important;
+	cursor: pointer;
+}
+
+.successful_message {
+	/*background-color: lightgreen;*/
+	background-color: #00b300;
+}
+
+.failed_message {
+	background-color: #ff7777;
+}
