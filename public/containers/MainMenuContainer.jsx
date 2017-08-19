@@ -21,7 +21,7 @@ class MainMenuContainer extends Component {
 				},
 				{
 					text: "Manage Connected Devices",
-					url: "/devices"
+					url: "/connected_devices"
 				},
 				{
 					text: "Show Processes",
