@@ -53,6 +53,11 @@ app.use("/fonts/Kurale", express.static(resourcesFolderPath + pathSeparator + "f
 // app.use("/snesStatic2", express.static(remotesFolderPath	+ "/snes2/"));
 
 app.get("/", function(request, response) {
+	// console.log(request.headers);
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator);
+});
+
+app.get("/connected_devices", function(request, response) {
 	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator);
 });
 
@@ -76,12 +81,21 @@ app.post("/host/openUploads", (request, response) => {
 });
 
 
+// Test paths.
 app.get("/test", function(request, response) {
 	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "test_page" + pathSeparator);
 });
 
+app.get("/landing_page", function(request, response) {
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "landing_page" + pathSeparator);
+});
+
 app.get("/upload_test", function(request, response) {
 	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "upload_test" + pathSeparator);
+});
+
+app.get("/connected_devices_test", function(request, response) {
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "connected_devices" + pathSeparator);
 });
 
 app.get("/connect", (request, response) => {
@@ -90,6 +104,10 @@ app.get("/connect", (request, response) => {
 
 app.get("/noSocket", function(request, response) {
 	response.send("HALLO");
+});
+
+app.get("/client_test", function(request, response) {
+	response.sendFile(resourcesFolderPath + pathSeparator + "pages" + pathSeparator + "client_test" + pathSeparator);
 });
 
 /*app.get("/command", function(request, response) {
