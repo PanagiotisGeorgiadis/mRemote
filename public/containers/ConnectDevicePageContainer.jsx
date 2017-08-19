@@ -97,6 +97,10 @@ class ConnectDevicePageContainer extends Component {
 		});
 	}
 
+	componentWillUnmount() {
+		this.clearPreviousTimer();	
+	}
+
 	render() {
 		let contents = [];
 
