@@ -8,8 +8,17 @@ module.exports = class SocketConnections {
 	constructor(httpServer, hostInfo) {
 
 		this.connections = [];
+		this.connectedDevices = [];
+		this.hostSocket = null;
 		this.hostInfo = hostInfo;
+
 		io = require("socket.io")(httpServer);
+
+		// Search on which event to actually listen on.
+		// io.on("connect", (socket) => {
+		// 	console.log("Host connect event fired!");
+		// 	console.log(socket);
+		// });
 
 		io.on("connection", (socket) => {
 
@@ -17,43 +26,89 @@ module.exports = class SocketConnections {
 				this.checkHostInternetAccess(socket);
 			}, 5000);
 
-			socket.on("Device Connected", () => {
-				this.deviceConnectedHandler(socket);
+			/*console.log("======================================");
+			console.log("Socket.handshake");
+			console.log(socket.handshake);
+			console.log("======================================");*/
+
+			socket.on("Host/Connection", () => {
+				this.hostConnectedHandler(socket);
+				this.hostConnectionStatusHandler(socket);
 			});
 
-			socket.on("Device Disconnected", () => {
+			socket.on("Host/Disconnect", () => {
+				this.hostDisconnectedHandler(socket);
+				this.hostConnectionStatusHandler(socket);
+			});
+
+			socket.on("Host/Connection/Status", () => {
+				this.hostConnectionStatusHandler(socket);
+			});
+
+			socket.on("Device/Connection", (deviceInfo) => {
+				this.deviceConnectedHandler(socket, deviceInfo);
+			});
+
+			socket.on("Device/Disconnect", () => {
 				this.deviceDisconnectedHandler(socket);
 			});
+
+			socket.on("Get/Connected_Devices", () => {
+				this.getConnectedDevicesHandler(socket);
+			});
+
 		});
+	};
+
+	hostConnectedHandler(socket) {
+		this.hostSocket = socket;
+	};
+
+	hostDisconnectedHandler(socket) {
+		this.hostSocket = null;
+	};
+
+	hostConnectionStatusHandler(socket) {
+		if(this.hostSocket)
+			socket.broadcast.emit("Host/Connection/Success");
+		else
+			socket.broadcast.emit("Host/Connection/Failure");
 	};
 
 	checkHostInternetAccess(socket) {
-		
-		// console.log(this.hostInfo.hasInternetAccess());
 		this.hostInfo.hasInternetAccess((internetAccess) => {
 			if(internetAccess)
-				console.log("Host Is Connected!");
+				socket.broadcast.emit("Host/Connection/Success");
 			else
-				console.log("No Internet Connection!");
+				socket.broadcast.emit("Host/Connection/Failure");
+
+			socket.emit("Host/Internet/Access", {internetAccess});
 		});
-		// if(!this.hostInfo.hasInternetAccess())
-			// console.log("HOST Disconnected");
-			// socket.broadcast.emit("Host Disconnected!");
 	};
 
-	deviceConnectedHandler(socket) {
-		
-		console.log("A Device Connected!");
-		this.connections.push(socket.id);
-		// socket.broadcast.emit("Device Connected", {connections: this.connections});
-		socket.broadcast.emit("Total Connections", {connections: this.connections});
-		console.log(this.connections);
+	getConnectedDeviceIndex(socketId) {
+		for(var i = 0; i < this.connectedDevices.length; i++) {
+			if(this.connectedDevices[i].socketId === socketId)
+				return i;
+		}
+		return -1;
+	}
+
+	deviceConnectedHandler(socket, deviceInfo) {
+		if(this.getConnectedDeviceIndex() === -1) {
+			this.connectedDevices.push(Object.assign({socketId: socket.id}, deviceInfo));
+			socket.broadcast.emit("Device/Connection/Success", this.connectedDevices[this.connectedDevices.length - 1]);
+		}
 	};
 
 	deviceDisconnectedHandler(socket) {
+		var deviceIndex = this.getConnectedDeviceIndex(socket.id);
+		if(deviceIndex >= 0) {
+			socket.broadcast.emit("Device/Connection/Failure", this.connectedDevices.splice(deviceIndex, 1)[0]);
+		}
+	};
 
-		console.log("A Device Disconnected!");
-		this.connections.splice(this.connections.indexOf(socket.id), 1);
-		socket.broadcast.emit("Total Connections", {connections: this.connections});
+	getConnectedDevicesHandler(socket) {
+		socket.emit("Host/Connected_Devices", this.connectedDevices);
 	};
 }
