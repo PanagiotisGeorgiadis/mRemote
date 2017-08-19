@@ -63,7 +63,7 @@ module.exports = class HostInfo {
 	hasInternetAccess(callback) {
 
 		dns.lookup("google.com", (err) => {
-			if(err && err.code === "ENOTFOUND")
+			if(err && ( err.code === "ENOTFOUND" || err.code === "EAI_AGAIN"))
 				callback(false);
 			else
 				callback(true);
