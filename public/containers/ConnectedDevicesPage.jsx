@@ -6,11 +6,9 @@ import { showLoadingImage, hideLoadingImage } from "../actions/SharedActions";
 import { initSocketConnection, updateHostInternetAccess, getConnectedDevices, updateConnectedDevices } from "../actions/SocketActions";
 
 import { updateDeviceStatus, updateConnectedDevicesStyles, showDeviceStatusMenu, setSelectedDeviceContainer, setMovingElementSourceKey, setMovingElementDestKey, switchDevices, addConnectedDevice, removeConnectedDevice } from "../actions/ConnectedDevicesPageActions";
-// import { showSuccessInformationMessage, showDangerInformationMessage, hideInformationMessage, updateInformationMessageText } from "../actions/InformationMessageActions";
 
 import LoadingImage from "../components/Generic/LoadingImage";
 import ConnectedDevicesList from "../components/ConnectedDevicesPage/ConnectedDevicesList";
-// import InformationMessage from "../components/Generic/InformationMessage";
 
 class ConnectedDevicesPage extends Component {
 
@@ -43,13 +41,6 @@ class ConnectedDevicesPage extends Component {
 		this.setState({
 			socketInitialised: true
 		});
-	}
-
-	getSelectedDeviceContainer(targetElement) {
-		if(targetElement.className.split(" ")[0] === "device_container")
-			return targetElement;
-		else
-			return this.getSelectedDeviceContainer(targetElement.parentElement);
 	}
 
 	onContextMenuHandler(event, keyValue) {
@@ -86,18 +77,6 @@ class ConnectedDevicesPage extends Component {
 
 		if(nextProps.connectedDevices && nextProps.connectedDevices.length)
 			this.state.updateConnectedDevicesStyles(nextProps.connectedDevices);
-		/*if(nextProps.connectedDevices && nextProps.connectedDevices.length) {
-			if(nextProps.connectedDevicesDrawable && nextProps.connectedDevicesDrawable.length) {
-
-				if(nextProps.connectedDevicesDrawable.length < nextProps.connectedDevicesDrawable.length)
-					this.state.updateConnectedDevicesStyles(nextProps.connectedDevices);
-				else
-					this.state.updateConnectedDevicesStyles(nextProps.connectedDevicesDrawable);
-
-			} else {
-				this.state.updateConnectedDevicesStyles(nextProps.connectedDevices);
-			}
-		}*/
 
 		this.setState({
 			...nextProps
