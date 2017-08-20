@@ -9,19 +9,49 @@ import DeviceStatusMenu from "./DeviceStatusMenu";
 // System Name 		=> Used
 // System Version 	=> Used
 // Device Unique ID => Maybe
-const ConnectedDevicesList = ({connectedDevices = [], onContextMenuHandler = null, onDragOverHandler = null, onDragStartHandler = null, onDropHandler = null,  statusMenuStyles = {}, statusMenuOnClickHandler = null }) => {
+export default class ConnectedDevicesList extends Component {
 
-	let devices = connectedDevices.map((device, iterator) => {
-		device.key = iterator;
-		return <DeviceContainer key = { iterator } deviceContainerClassName = { device.containerClassName } deviceHeader = { "Player " + (iterator + 1) } deviceInfo = { device } onContextMenuHandler = { onContextMenuHandler } onDragOverHandler = { onDragOverHandler } onDragStartHandler = { onDragStartHandler } onDropHandler = { onDropHandler } />
-	});
+	constructor(props) {
+		super(props);
+		this.state = {
+			scrollPosition: 0,
+		}
+	}
 
-	return (
-		<div className = "connected_devices_container">
-			{ devices }
-			<DeviceStatusMenu key = { 10000 } updateStatusHandler = { statusMenuOnClickHandler } statusMenuStyles = { statusMenuStyles } />
-		</div>
-	);
+	componentDidUpdate() {
+		this.connectedDevicesListContainer.scrollTop = this.state.scrollPosition;
+	}
+
+	componentDidMount() {
+		this.connectedDevicesListContainer.scrollTop = this.state.scrollPosition;
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			...nextProps
+		});
+	}
+
+	componentWillMount() {
+		this.setState({
+			...this.props
+		});
+	}
+
+	render() {
+		let { connectedDevices = [], onContextMenuHandler = null, onDragOverHandler = null, onDragStartHandler = null, onDropHandler = null,  statusMenuStyles = {}, statusMenuOnClickHandler = null, onScrollHandler = null } = this.state;
+		let devices = connectedDevices.map((device, iterator) => {
+			device.key = iterator;
+			return (
+				<DeviceContainer key = { iterator } deviceContainerClassName = { device.containerClassName } deviceHeader = { "Player " + (iterator + 1) } deviceInfo = { device } onContextMenuHandler = { onContextMenuHandler } onDragOverHandler = { onDragOverHandler } onDragStartHandler = { onDragStartHandler } onDropHandler = { onDropHandler } />
+				);
+		});
+
+		return (
+			<div ref = { list_container => this.connectedDevicesListContainer = list_container } className = "connected_devices_container" onScroll = { onScrollHandler }>
+				{ devices }
+				<DeviceStatusMenu key = { 10000 } updateStatusHandler = { statusMenuOnClickHandler } statusMenuStyles = { statusMenuStyles } />
+			</div>
+		);
+	}
 }
-
-export default ConnectedDevicesList;

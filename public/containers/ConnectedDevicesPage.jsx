@@ -15,7 +15,9 @@ class ConnectedDevicesPage extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			listContainerScrollPosition: 0
+		};
 	}
 
 	initialiseSocketEvents(socket) {
@@ -26,12 +28,10 @@ class ConnectedDevicesPage extends Component {
 
 		socket.on("Device/Connection/Success", (deviceInfo) => {
 			this.state.addConnectedDevice(deviceInfo);
-			// this.state.getConnectedDevices();
 		});
 
 		socket.on("Device/Connection/Failure", (deviceInfo) => {
 			this.state.removeConnectedDevice(deviceInfo);
-			// this.state.getConnectedDevices();
 		});
 
 		socket.on("Host/Connected_Devices", (connectedDevices) => {
@@ -42,6 +42,14 @@ class ConnectedDevicesPage extends Component {
 		this.setState({
 			socketInitialised: true
 		});
+	}
+
+	onScrollHandler(event) {
+		if(event.target.scrollTop !== this.state.listContainerScrollPosition) {
+			this.setState({
+				listContainerScrollPosition: event.target.scrollTop
+			});
+		}
 	}
 
 	onContextMenuHandler(event, keyValue) {
@@ -104,7 +112,7 @@ class ConnectedDevicesPage extends Component {
 		}
 
 		if(this.state.connectedDevicesDrawable && this.state.connectedDevicesDrawable.length) {
-			contents.push(<ConnectedDevicesList key = {Date.now()} connectedDevices = { this.state.connectedDevicesDrawable } onContextMenuHandler = { this.onContextMenuHandler.bind(this) } statusMenuOnClickHandler = { this.statusMenuOnClickHandler.bind(this) } statusMenuStyles = { this.state.deviceStatusMenuStyles } onDragOverHandler = { this.onDragOverHandler.bind(this) } onDragStartHandler = { this.onDragStartHandler.bind(this) } onDropHandler = { this.onDropHandler.bind(this) } />
+			contents.push(<ConnectedDevicesList key = {Date.now()} connectedDevices = { this.state.connectedDevicesDrawable } onContextMenuHandler = { this.onContextMenuHandler.bind(this) } statusMenuOnClickHandler = { this.statusMenuOnClickHandler.bind(this) } statusMenuStyles = { this.state.deviceStatusMenuStyles } onDragOverHandler = { this.onDragOverHandler.bind(this) } onDragStartHandler = { this.onDragStartHandler.bind(this) } onDropHandler = { this.onDropHandler.bind(this) } onScrollHandler = { this.onScrollHandler.bind(this) } scrollPosition = { this.state.listContainerScrollPosition } />
 			);
 		}
 
