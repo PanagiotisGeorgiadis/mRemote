@@ -7,6 +7,7 @@ import MenuContainer from "../components/Generic/MenuContainer";
 import MenuTriggerButton from "../components/Generic/MenuTriggerButton";
 
 import { toggleMainMenu } from "../actions/MainMenuActions";
+import { hideDeviceStatusMenu } from "../actions/ConnectedDevicesPageActions";
 
 class MainMenuContainer extends Component {
 
@@ -64,6 +65,7 @@ class MainMenuContainer extends Component {
 	toggleMenuTriggerButton(event) {
 		event.stopPropagation();
 		// event.nativeEvent.stopImmediatePropagation();
+		this.state.hideDeviceStatusMenu();
 		this.state.toggleMainMenu(this.state.menuContainerDisplayValue);
 	}
 
@@ -88,6 +90,7 @@ const mapStateToProps = ({MainMenuReducer}) => {
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		toggleMainMenu,
+		hideDeviceStatusMenu
 	}, dispatch);
 };
 

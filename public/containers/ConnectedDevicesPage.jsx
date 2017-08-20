@@ -6,6 +6,7 @@ import { showLoadingImage, hideLoadingImage } from "../actions/SharedActions";
 import { initSocketConnection, updateHostInternetAccess, getConnectedDevices, updateConnectedDevices } from "../actions/SocketActions";
 
 import { updateDeviceStatus, updateConnectedDevicesStyles, showDeviceStatusMenu, setSelectedDeviceContainer, setMovingElementSourceKey, setMovingElementDestKey, switchDevices, addConnectedDevice, removeConnectedDevice } from "../actions/ConnectedDevicesPageActions";
+import { hideMainMenu } from "../actions/MainMenuActions";
 
 import LoadingImage from "../components/Generic/LoadingImage";
 import ConnectedDevicesList from "../components/ConnectedDevicesPage/ConnectedDevicesList";
@@ -45,6 +46,7 @@ class ConnectedDevicesPage extends Component {
 
 	onContextMenuHandler(event, keyValue) {
 		event.preventDefault();
+		this.state.hideMainMenu();
 		this.state.setSelectedDeviceContainer(keyValue);
 		this.state.showDeviceStatusMenu(event.nativeEvent.pageX, event.nativeEvent.pageY);
 	}
@@ -139,6 +141,7 @@ const mapDispatchToProps = (dispatch) => {
 		switchDevices,
 		addConnectedDevice,
 		removeConnectedDevice,
+		hideMainMenu
 	}, dispatch);
 };
 
