@@ -6,13 +6,13 @@ import { showLoadingImage } from "../actions/SharedActions";
 import { initSocketConnection, updateHostInternetAccess, getConnectedDevices, updateConnectedDevices } from "../actions/SocketActions";
 import { showSuccessInformationMessage, showDangerInformationMessage, hideInformationMessage, updateInformationMessageText } from "../actions/InformationMessageActions";
 
-import { getServerInfo } from "../actions/ConnectDevicePageActions";
+import { getServerInfo } from "../actions/HomePageActions";
 
 import LoadingImage from "../components/Generic/LoadingImage";
 import InformationMessage from "../components/Generic/InformationMessage";
-import QRSectionContainer from "../components/ConnectDevicePage/QRSectionContainer";
+import QRSectionContainer from "../components/HomePage/QRSectionContainer";
 
-class ConnectDevicePageContainer extends Component {
+class HomePage extends Component {
 
 	constructor(props) {
 		super(props);
@@ -126,9 +126,9 @@ class ConnectDevicePageContainer extends Component {
 	}
 }
 
-const mapStateToProps = ({ConnectDevicePageReducer, SocketReducer, SharedReducer, InformationMessageReducer}) => {
+const mapStateToProps = ({HomePageReducer, SocketReducer, SharedReducer, InformationMessageReducer}) => {
 	return {
-		...ConnectDevicePageReducer,
+		...HomePageReducer,
 		...SocketReducer,
 		...SharedReducer,
 		...InformationMessageReducer,
@@ -150,4 +150,4 @@ const mapDispatchToProps = (dispatch) => {
 	}, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConnectDevicePageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

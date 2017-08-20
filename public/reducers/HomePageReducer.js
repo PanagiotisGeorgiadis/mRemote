@@ -1,4 +1,4 @@
-import { GET_SERVER_INFO_SUCCESS, GET_SERVER_INFO_FAILED } from "../actions/ConnectDevicePageActions";
+import { GET_SERVER_INFO_SUCCESS, GET_SERVER_INFO_FAILED } from "../actions/HomePageActions";
 
 export default (state = null, action) => {
 

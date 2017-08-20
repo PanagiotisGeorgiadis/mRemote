@@ -13,7 +13,7 @@ import initialState from "./mRemoteState";
 import MainMenuContainer from "./containers/MainMenuContainer.jsx";
 import Footer from "./components/Generic/Footer";
 
-import ConnectDevicePageContainer from "./containers/ConnectDevicePageContainer.jsx";
+import HomePage from "./containers/HomePage.jsx";
 import ConnectedDevicesPage from "./containers/ConnectedDevicesPage.jsx";
 
 import { hideMainMenu } from "./actions/MainMenuActions";
@@ -52,14 +52,14 @@ class mRemoteHost extends Component {
 			<Router>
 				<div className = "mRemoteContainer" onClick = { this.onClickHandler.bind(this) }>
 					<MainMenuContainer />
-					<Route exact path = "/" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/" component = { HomePage } />
 					<Route exact path = "/connected_devices" component = { ConnectedDevicesPage } />
-					<Route exact path = "/devices/:id" component = { ConnectDevicePageContainer } />
-					<Route exact path = "/processes" component = { ConnectDevicePageContainer } />
-					<Route exact path = "/uploads" component = { ConnectDevicePageContainer } />
-					<Route exact path = "/tutorial" component = { ConnectDevicePageContainer } />
-					<Route exact path = "/settings" component = { ConnectDevicePageContainer } />
-					<Route exact path = "/systemInfo" component = { ConnectDevicePageContainer } />
+					<Route exact path = "/devices/:id" component = { HomePage } />
+					<Route exact path = "/processes" component = { HomePage } />
+					<Route exact path = "/uploads" component = { HomePage } />
+					<Route exact path = "/tutorial" component = { HomePage } />
+					<Route exact path = "/settings" component = { HomePage } />
+					<Route exact path = "/systemInfo" component = { HomePage } />
 					<Footer />
 				</div>
 			</Router>

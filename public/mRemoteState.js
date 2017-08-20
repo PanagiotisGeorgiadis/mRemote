@@ -14,7 +14,7 @@ const initialState = {
 	MainMenuReducer: {
 		...defaultMainMenuState
 	},
-	ConnectDevicePageReducer: {
+	HomePageReducer: {
 		...defaultApplicationState,
 	},
 	SocketReducer: {
