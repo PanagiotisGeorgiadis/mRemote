@@ -1,6 +1,6 @@
 {
   "name": "mRemote",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "This is a proof of concept for a project call mRemote.",
   "main": "index.js",
   "scripts": {
